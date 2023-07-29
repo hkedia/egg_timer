@@ -19,4 +19,14 @@ defmodule EggTimer.Alarm do
   def default_fn do
     IO.puts("Alarm triggered!")
   end
+
+  def status(alarm) do
+    {alarm.name, alarm.duration, remaining(alarm)}
+  end
+
+  def remaining(alarm) do
+    alarm.time
+    |> DateTime.add(alarm.duration, :millisecond)
+    |> DateTime.diff(DateTime.utc_now())
+  end
 end
